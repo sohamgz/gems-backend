@@ -15,12 +15,13 @@ Hi, I'm **Soham Shinde**, and this repository contains my backend solution for t
 * ✅ **Task Management**
 
   * Create, Read, Update, Delete tasks
+  * Tasks include due dates, status, and assigned user
   * Each user only accesses their own tasks
   * Tasks linked to user via MongoDB relations
 
 * 🔐 **Protected Routes**
 
-  * Only authenticated users can access `/api/tasks` endpoints
+  * Only authenticated users can access `/api/tasks`   and `/api/users` routes
   * JWT is verified using middleware on every request
 
 ---
@@ -32,7 +33,8 @@ gems-backend/
 │
 ├── controllers/
 │   ├── authController.js
-│   └── taskController.js
+│   ├── taskController.js
+│   └── userController.js
 │
 ├── middleware/
 │   └── authMiddleware.js
@@ -43,11 +45,17 @@ gems-backend/
 │
 ├── routes/
 │   ├── auth.js
-│   └── task.js
+│   ├── task.js
+│   └── user.js
+│
+├── tests/
+│   └── testApi.js             # Manual test script for API endpoints
 │
 ├── .env
 ├── server.js
-└── package.json
+├── package.json
+└── README.md
+
 ```
 
 ---
@@ -98,11 +106,17 @@ gems-backend/
 
 ---
 
+## API Routes
+All routes below follow RESTful conventions.
+**Authentication** is via **JWT**. Add your token to the `Authorization` header as:
+`Authorization: Bearer <your_token>`
+
 ## 🔐 Authentication Details
 
-### 🔑 Register a User
+### Register a User
 
 * **POST** `/api/auth/register`
+* Public 
 * Request body:
 
   ```json
@@ -113,9 +127,10 @@ gems-backend/
   }
   ```
 
-### 🔑 Login a User
+### Login a User
 
 * **POST** `/api/auth/login`
+* Public
 * Request body:
 
   ```json
@@ -131,8 +146,33 @@ gems-backend/
     "token": "JWT_TOKEN"
   }
   ```
+### Get All Users
+* **GET `/api/users`**
 
-Use this token in the `Authorization` header (Bearer token) for all task routes.
+* Private (any authenticated user)
+
+* Returns list of all users (excluding passwords)
+
+### Get a Specific User
+* **GET `/api/users/:userId`**
+
+* Private (any authenticated user)
+* Returns details of the selected user
+
+### Update a User
+* **PUT `/api/users/:userId`**
+
+* Private (any authenticated user)
+
+* Request Body:
+
+```json
+{
+  "username": "newName",
+  "email": "newemail@example.com"
+}
+```
+
 
 ---
 
@@ -143,46 +183,76 @@ Use this token in the `Authorization` header (Bearer token) for all task routes.
 ### 📌 Create Task
 
 * **POST** `/api/tasks`
+* Private
 * Body:
 
   ```json
   {
-    "title": "Study",
-    "description": "Finish Node.js module"
+  "title": "Study",
+  "description": "Finish Node.js module",
+  "dueDate": "2025-08-01",
+  "assignedUser": "userId_here"
+
   }
   ```
 
 ### 📌 Get All Tasks
 
 * **GET** `/api/tasks`
+* Private
+* Returns all tasks for the authenticated user (with task IDs and titles)
+
+### 📌 Get a Specific Task
+* **GET** `/api/tasks/:taskId`
+* Private
+* Returns full details of the task if it belongs to the user
 
 ### 📌 Update a Task
 
-* **PUT** `/api/tasks/:id`
+* **PUT** `/api/tasks/:taskid`
+* Private
 * Body:
 
   ```json
   {
     "title": "Updated Title",
-    "description": "Updated Description"
+    "description": "Updated Description",
+    "status": "completed",
+    "dueDate": "2025-08-02"
   }
   ```
 
 ### 📌 Delete a Task
 
-* **DELETE** `/api/tasks/:id`
+* **DELETE** `/api/tasks/:taskid`
+* Private
+* Deletes the task if it belongs to the user
 
 ---
 
-## ✅ Example API Testing (Thunder Client)
+## ✅ API Testing (Thunder Client)
 
 In Thunder Client (or Postman):
 
 * Add your JWT in **Authorization → Bearer Token**
+* Use the correct HTTP method and route
 * Use different requests for each route
 * Check MongoDB Compass to verify changes if needed
 
 ---
+## ✅ Test Script
+
+This repo includes a basic testApi.js script for testing the core API flow:
+
+* Registers a test user
+* Logs in and gets JWT
+* Creates, fetches, updates, and deletes a task
+
+Run using:
+```bash
+   node tests/testApi.js
+```
+(Requires server to be running)
 
 ## 🧹 Cleanup & Reset
 
