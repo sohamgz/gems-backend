@@ -121,7 +121,7 @@ All routes below follow RESTful conventions.
 
   ```json
   {
-    "username": "soham",
+    "name": "soham",
     "email": "soham@example.com",
     "password": "password123"
   }
@@ -147,20 +147,20 @@ All routes below follow RESTful conventions.
   }
   ```
 ### Get All Users
-* **GET `/api/users`**
+* **GET `/api/auth/users`**
 
 * Private (any authenticated user)
 
 * Returns list of all users (excluding passwords)
 
 ### Get a Specific User
-* **GET `/api/users/:userId`**
+* **GET `/api/auth/users/:Id`**
 
 * Private (any authenticated user)
 * Returns details of the selected user
 
 ### Update a User
-* **PUT `/api/users/:userId`**
+* **PUT `/api/auth/users/:Id`**
 
 * Private (any authenticated user)
 
@@ -168,7 +168,7 @@ All routes below follow RESTful conventions.
 
 ```json
 {
-  "username": "newName",
+  "name": "newName",
   "email": "newemail@example.com"
 }
 ```
@@ -229,15 +229,29 @@ All routes below follow RESTful conventions.
 * Deletes the task if it belongs to the user
 
 ---
+## 🚀 Live Deployment
 
-## ✅ API Testing (Thunder Client)
+* The backend is deployed on **Render**.
 
-In Thunder Client (or Postman):
+### 🔗 API Base URL:
+[https://gems-backend-whsr.onrender.com](https://gems-backend-whsr.onrender.com)
 
-* Add your JWT in **Authorization → Bearer Token**
-* Use the correct HTTP method and route
-* Use different requests for each route
-* Check MongoDB Compass to verify changes if needed
+
+---
+
+## ✅ Testing the Live API
+
+* You can test the deployed API using:
+
+### Example Endpoints:
+- `POST /api/auth/register` → Register user  
+- `POST /api/auth/login` → Login user  
+- `POST /api/tasks` → Create task *(requires token)*  
+- `GET /api/tasks` → View all tasks  
+- `PUT /api/tasks/:taskId` → Update task  
+- `DELETE /api/tasks/:taskId` → Delete task  
+
+> ⚠️ Remember to include your `Authorization: Bearer <token>` header in protected routes.
 
 ---
 ## ✅ Test Script
