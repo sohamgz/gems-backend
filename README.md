@@ -1,4 +1,4 @@
-
+### GEMS Backend Task – Task Manager API
 
 Hi, I'm **Soham Shinde**, and this repository contains my backend solution for the **GEMS Internship Task**. The project is a simple and secure **Task Manager API** built using **Node.js**, **Express**, and **MongoDB**. It includes user authentication via JWT and allows users to perform CRUD operations on their personal tasks.
 
