@@ -62,7 +62,6 @@ const getUserById = async (req, res) => {
   }
 };
 
-// ✅ NEW: @desc Update user info
 // @desc    Update user info
 const updateUser = async (req, res) => {
   try {
@@ -106,5 +105,5 @@ module.exports = {
   loginUser,
   getAllUsers,
   getUserById,
-  updateUser, // 👈 added this
+  updateUser, 
 };

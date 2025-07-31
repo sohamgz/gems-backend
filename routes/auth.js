@@ -16,6 +16,6 @@ router.post('/login', loginUser);
 // User Routes
 router.get('/users', protect, getAllUsers);
 router.get('/users/:id', protect, getUserById);
-router.put('/users/:id', protect, updateUser); // 👈 new route
+router.put('/users/:id', protect, updateUser);
 
 module.exports = router;
