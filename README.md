@@ -231,12 +231,20 @@ All routes below follow RESTful conventions.
 ---
 ## 🚀 Live Deployment
 
-* The backend is deployed on **Render**.
+* Backend is deployed on **Render**.
 
 ### 🔗 API Base URL:
 [https://gems-backend-whsr.onrender.com](https://gems-backend-whsr.onrender.com)
 
+* Frontend is deployed on **Vercel**.
 
+### 🚀Live URL :
+[https://gg-alpha-fawn.vercel.app/](https://gg-alpha-fawn.vercel.app/)
+
+* Note: Registration and login may take 15-20 seconds due to free tier server sleeping.
+
+* Frontend repository:
+[GitHub Repository](https://github.com/sohamgz/gg)
 ---
 
 ## ✅ Testing the Live API
